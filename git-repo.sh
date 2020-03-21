@@ -8,14 +8,6 @@ USEREMAIL=""
 USERNAME=""
 TOKEN=""
 
-configure(){
-    
-}
-
-git-repo(){
-
-}
-
 main(){
     config=()
     while IFS=$'\n' read -a line; 
@@ -60,7 +52,7 @@ main(){
         echo "created initial README"
         git status
         git add * 
-        
+
         git config --user.email USEREMAIL
         git config --user.name USERNAME
         DATASTRING = "'{\"name\":\"$REPONAME\",\"homepage\":\"https://github.com\",\"private\": false,\"has_issues\":true,\"has_projects\":true,\"has_wiki\":true}'"
