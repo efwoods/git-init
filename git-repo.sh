@@ -51,19 +51,23 @@ main(){
         echo "initialized git repository"
         echo "# $1 Repository" >> README.md
         echo "created initial README"
-        git status
-        git add * 
 
-        git config --user.email $USEREMAIL
-        git config --user.name $USERNAME
-        DATASTRING="'{\"name\":\"$REPONAME\",\"homepage\":\"https://github.com\",\"private\": false,\"has_issues\":true,\"has_projects\":true,\"has_wiki\":true}'"
+        git config user.email $USEREMAIL
+        git config user.name $USERNAME
+        DATASTRING='{"name":"'
+        DATASTRING+=$REPONAME
+        DATASTRING+='","homepage":"https://github.com","private":false,"has_issues":true,"has_projects":true,"has_wiki":true}'
+
         curl -H "Authorization: token $TOKEN" --request POST --data $DATASTRING https://api.github.com/user/repos
         ORIGIN="https://github.com/$USERNAME/$REPONAME.git"
         git remote add origin $ORIGIN
-        git push --set-upstream origin master
-        
+        git push -u origin master
+
+        git status
+        git add * 
+        git status
         git commit -m 'init'
-        git push -u orign master
+        git push --set-upstream origin master
         echo "repo created at $HOME/$REPONAME"
     fi
 }
