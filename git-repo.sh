@@ -9,7 +9,6 @@ USERNAME=""
 TOKEN=""
 
 main(){
-    config=()
     while IFS=$'\n' read -a line; 
     do
         config+=(${line})
