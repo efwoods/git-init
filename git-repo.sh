@@ -15,7 +15,7 @@ main(){
     USERNAME=${config[1]}
     read TOKEN < TOKENFILE
 
-    if [USEREMAIL == "" || USERNAME == "" || USEREMAIL == "#git-user.email" || USERNAME == "#git-user.name"  || TOKEN == "" || TOKEN == "#gitauthtoken"]
+    if [$USEREMAIL == "" || $USERNAME == "" || $USEREMAIL == "#git-user.email" || $USERNAME == "#git-user.name"  || $TOKEN == "" || $TOKEN == "#gitauthtoken"]
     then
         echo "Set git user.email config"
         read USEREMAIL
@@ -36,7 +36,7 @@ main(){
         read TOKEN < TOKENFILE
     fi
 
-    if [USEREMAIL == "" || USERNAME == "" || USEREMAIL == "#git-user.email" || USERNAME == "#git-user.name" || TOKEN == "" || TOKEN == "#gitauthtoken"]
+    if [$USEREMAIL == "" || $USERNAME == "" || $USEREMAIL == "#git-user.email" || $USERNAME == "#git-user.name" || $TOKEN == "" || $TOKEN == "#gitauthtoken"]
     then
         echo "error setting config"
     else
@@ -46,7 +46,8 @@ main(){
 
         REPONAME=$1
         echo "REPONAME: is $1"
-        mkdir $HOME/$REPONAME && cd $HOME/$REPONAME
+        mkdir $HOME/$REPONAME 
+        source $HOME/$REPONAME
         echo "created repo and moved to repo"
         git init
         echo "initialized git repository"
@@ -55,8 +56,8 @@ main(){
         git status
         git add * 
 
-        git config --user.email USEREMAIL
-        git config --user.name USERNAME
+        git config --user.email $USEREMAIL
+        git config --user.name $USERNAME
         DATASTRING="'{\"name\":\"$REPONAME\",\"homepage\":\"https://github.com\",\"private\": false,\"has_issues\":true,\"has_projects\":true,\"has_wiki\":true}'"
         curl -H "Authorization: token $TOKEN" --request POST --data $DATASTRING https://api.github.com/user/repos
         ORIGIN="https://github.com/$USERNAME/$REPONAME.git"
