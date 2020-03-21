@@ -48,7 +48,7 @@ main(){
         echo "REPONAME: is $1"
         mkdir $HOME/$REPONAME 
         source $HOME/$REPONAME
-        echo "created repo and moved to repo"
+        echo "created repo and moved to $pwd"
         git init
         echo "initialized git repository"
         echo "# $1 Repository" >> README.md
