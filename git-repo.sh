@@ -60,12 +60,14 @@ main(){
         echo "created initial README"
         git status
         git add * 
+        
         git config --user.email USEREMAIL
         git config --user.name USERNAME
-
-        echo $USERNAME
         DATASTRING = "'{\"name\":\"$REPONAME\",\"homepage\":\"https://github.com\",\"private\": false,\"has_issues\":true,\"has_projects\":true,\"has_wiki\":true}'"
         curl -H "Authorization: token $TOKEN" --request POST --data $DATASTRING https://api.github.com/user/repos
+        ORIGIN="https://github.com/$USERNAME/$REPONAME.git"
+        git remote add origin $ORIGIN
+        git push --set-upstream origin master
         
         git commit -m 'init'
         git push -u orign master
