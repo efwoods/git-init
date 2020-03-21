@@ -15,7 +15,7 @@ main(){
     USERNAME=${config[1]}
     read TOKEN < TOKENFILE
 
-    if [$USEREMAIL == "" || $USERNAME == "" || $USEREMAIL == "#git-user.email" || $USERNAME == "#git-user.name"  || $TOKEN == "" || $TOKEN == "#gitauthtoken"]
+    if [$USEREMAIL = "" || $USERNAME = "" || $USEREMAIL = "#git-user.email" || $USERNAME = "#git-user.name"  || $TOKEN = "" || $TOKEN = "#gitauthtoken"]
     then
         echo "Set git user.email config"
         read USEREMAIL
@@ -36,7 +36,7 @@ main(){
         read TOKEN < TOKENFILE
     fi
 
-    if [$USEREMAIL == "" || $USERNAME == "" || $USEREMAIL == "#git-user.email" || $USERNAME == "#git-user.name" || $TOKEN == "" || $TOKEN == "#gitauthtoken"]
+    if [$USEREMAIL = "" || $USERNAME = "" || $USEREMAIL = "#git-user.email" || $USERNAME = "#git-user.name" || $TOKEN = "" || $TOKEN = "#gitauthtoken"]
     then
         echo "error setting config"
     else
@@ -70,7 +70,7 @@ main(){
     fi
 }
 
-if [$1 == ""]
+if [$1 = ""]
 then
     echo "ERROR enter repo name"
     echo "script syntax: ./git-repo.sh [REPONAME]"
