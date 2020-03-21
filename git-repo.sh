@@ -1,22 +1,21 @@
 #!/bin/bash
 # Create a new git repo
 # $1 repo name
-
-CONFIGFILE="./.config"
-TOKENFILE="./.gitauthtoken"
-USEREMAIL=""
-USERNAME=""
-TOKEN=""
+# run file with . ./git-init reponame
 
 main(){
+    CONFIGFILE="./.config"
+    TOKENFILE="./.gitauthtoken"
+    USEREMAIL=""
+    USERNAME=""
+    TOKEN=""
     config=()
     while IFS=$'\n' read -a line; do config+=(${line}); done < $CONFIGFILE;
     USEREMAIL=${config[0]}
     USERNAME=${config[1]}
-    read TOKEN < TOKENFILE
+    read TOKEN < $TOKENFILE
 
-    if [$USEREMAIL = "" || $USERNAME = "" || $USEREMAIL = "#git-user.email" || $USERNAME = "#git-user.name"  || $TOKEN = "" || $TOKEN = "#gitauthtoken"]
-    then
+    if [ $USEREMAIL == "" || $USERNAME == "" || $USEREMAIL == "#git-user.email" || $USERNAME == "#git-user.name"  || $TOKEN == "" || $TOKEN == "#gitauthtoken" ]; then
         echo "Set git user.email config"
         read USEREMAIL
         echo USEREMAIL > .config
@@ -36,8 +35,7 @@ main(){
         read TOKEN < TOKENFILE
     fi
 
-    if [$USEREMAIL = "" || $USERNAME = "" || $USEREMAIL = "#git-user.email" || $USERNAME = "#git-user.name" || $TOKEN = "" || $TOKEN = "#gitauthtoken"]
-    then
+    if [ $USEREMAIL == "" || $USERNAME == "" || $USEREMAIL == "#git-user.email" || $USERNAME == "#git-user.name" || $TOKEN == "" || $TOKEN == "#gitauthtoken" ]; then
         echo "error setting config"
     else
         echo "Git user.email set to: $USEREMAIL"
@@ -47,7 +45,7 @@ main(){
         REPONAME=$1
         echo "REPONAME: is $1"
         mkdir $HOME/$REPONAME 
-        source $HOME/$REPONAME
+        cd $HOME/$REPONAME
         echo "created repo and moved to $pwd"
         git init
         echo "initialized git repository"
@@ -70,10 +68,9 @@ main(){
     fi
 }
 
-if [$1 = ""]
-then
+if [ $1 == "" ]; then
     echo "ERROR enter repo name"
-    echo "script syntax: ./git-repo.sh [REPONAME]"
+    echo "script syntax:. ./git-repo.sh [REPONAME]"
 else
     main $1
 fi
